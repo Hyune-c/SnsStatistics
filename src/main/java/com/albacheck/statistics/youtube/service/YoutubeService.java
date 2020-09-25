@@ -21,10 +21,13 @@ public class YoutubeService {
   }
 
   public ChannelStatistics findStatistics() throws IOException {
-    YouTube.Channels.List list = youtube.channels().list("statistics");
+    final String PART = "statistics";
+    final String FIELDS = "items(statistics)";
+
+    YouTube.Channels.List list = youtube.channels().list(PART);
     list.setKey(configure.getApiKey());
     list.setId(configure.getChannelId());
-    list.setFields("items(statistics)");
+    list.setFields(FIELDS);
 
     ChannelListResponse channelListResponse = list.execute();
     List<Channel> channelList = channelListResponse.getItems();
