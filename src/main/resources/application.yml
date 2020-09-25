@@ -1,0 +1,4 @@
+spring:
+  profiles:
+#    active: log, local, app
+    active: log, prod, app
