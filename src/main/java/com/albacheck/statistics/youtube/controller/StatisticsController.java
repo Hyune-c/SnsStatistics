@@ -1,5 +1,8 @@
 package com.albacheck.statistics.youtube.controller;
 
+import com.albacheck.statistics.youtube.service.YoutubeService;
+import com.google.api.services.youtube.model.ChannelStatistics;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/youtube")
-public class YoutubeController {
+@RequestMapping("/v1/statistics")
+public class StatisticsController {
+
+  private final YoutubeService youtubeService;
 
   @ResponseStatus(HttpStatus.OK)
-  @GetMapping
-  public String updateStoreByExcel() {
-    return "hello";
+  @GetMapping("/youtube")
+  public ChannelStatistics findStatistics() throws IOException {
+    return youtubeService.findStatistics();
   }
 }

@@ -1,8 +1,16 @@
 package com.albacheck.statistics.youtube.service;
 
-import java.util.ArrayList;
+import static com.albacheck.statistics.config.StatisticsConfigure.HTTP_TRANSPORT;
+import static com.albacheck.statistics.config.StatisticsConfigure.JSON_FACTORY;
+import static com.albacheck.statistics.type.SnsType.YOUTUBE;
+
+import com.albacheck.statistics.config.YoutubeConfigure;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.Channel;
+import com.google.api.services.youtube.model.ChannelListResponse;
+import com.google.api.services.youtube.model.ChannelStatistics;
+import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,49 +18,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class YoutubeService {
 
-  public void getSubscriber() {
+  private final YoutubeConfigure youtubeConfigure;
 
+  public ChannelStatistics findStatistics() throws IOException {
+    YouTube youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, request -> {
+    }).setApplicationName("albacheck-youtube-statistics").build();
+    String apiKey = youtubeConfigure.getApiKey();
+
+    YouTube.Channels.List list = youtube.channels().list("statistics");
+    list.setKey(apiKey);
+    list.setId(YOUTUBE.getChannelId());
+    list.setFields("items(statistics)");
+
+    ChannelListResponse channelListResponse = list.execute();
+    List<Channel> channelList = channelListResponse.getItems();
+
+    return channelList.get(0).getStatistics();
   }
-
-  public void getTotalView() {
-
-  }
-
-  public void getTotalVideo() {
-
-  }
-//  // todo: application 인 Admin 에서는 Entity 를 모르게 만드려고 했으나,
-//  // Core 에 BrandService 가 없고, 만들 경우 영향도가 클 것으로 예상되어 여기서 구현
-//  public UpdateStoreByExcelRes updateStoreByExcel(List<StoreExcelDto> storeExcelDtoList) {
-//    List<BrandStoreDto> alreadyExistStoreList = new ArrayList<>();
-//    List<BrandStoreDto> updatedStoreList = new ArrayList<>();
-//    List<BrandStoreDto> createdStoreList = new ArrayList<>();
-//
-//    storeExcelDtoList.forEach(dto -> {
-//          brandStoreRepository.findByBrandIdAndCode(BrandStoreType.GS25.getBrandId(), dto.getCode())
-//              .ifPresentOrElse(
-//                  entity -> {
-//                    if (isEqual(dto, entity)) {
-//                      alreadyExistStoreList.add(BrandStoreDto.of(entity));
-//                    } else {
-//                      entity.setBranchName(dto.getName());
-//                      entity.setAddress(dto.getAddress());
-//                      BrandStoreDto brandStoreDto = BrandStoreDto.of(entity);
-//                      updatedStoreList.add(update(brandStoreDto));
-//                    }
-//                  },
-//                  () -> {
-//                    BrandStoreDto brandStoreDto = BrandStoreDto
-//                        .of(dto.getCode(), dto.getName(), dto.getAddress(), BrandStoreType.GS25.getBrandId());
-//                    createdStoreList.add(create(brandStoreDto));
-//                  }
-//              );
-//        }
-//    );
-//
-//    return UpdateStoreByExcelRes
-//        .of(alreadyExistStoreList.stream().map(StoreExcelDto::of).collect(Collectors.toList()),
-//            updatedStoreList.stream().map(StoreExcelDto::of).collect(Collectors.toList()),
-//            createdStoreList.stream().map(StoreExcelDto::of).collect(Collectors.toList()));
-//  }
 }
