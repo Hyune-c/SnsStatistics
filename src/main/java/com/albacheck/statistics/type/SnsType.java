@@ -7,8 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SnsType {
 
-  YOUTUBE("YOUTUBE", "UCf9xSWkce6eYS4pu-hylrdQ");
+  YOUTUBE("YOUTUBE");
 
   private final String key;
-  private final String channelId;
 }
