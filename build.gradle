@@ -20,6 +20,10 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    compile group: 'com.google.api-client', name: 'google-api-client', version: '1.30.10'
+    compile group: 'com.google.apis', name: 'google-api-services-youtube', version: 'v3-rev222-1.25.0'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
