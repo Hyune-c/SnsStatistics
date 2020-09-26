@@ -1,4 +1,4 @@
-package com.albacheck.statistics.type;
+package com.albacheck.statistics.common.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SnsType {
 
-  YOUTUBE("YOUTUBE");
+  YOUTUBE("YOUTUBE"),
+  INSTAGRAM("INSTAGRAM");
 
   private final String key;
 }
