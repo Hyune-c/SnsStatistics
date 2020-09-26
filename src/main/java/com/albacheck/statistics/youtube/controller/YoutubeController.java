@@ -2,7 +2,6 @@ package com.albacheck.statistics.youtube.controller;
 
 import com.albacheck.statistics.youtube.service.YoutubeService;
 import com.google.api.services.youtube.model.ChannelStatistics;
-import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,7 @@ public class YoutubeController {
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping("/youtube")
-  public ChannelStatistics findStatistics() throws IOException {
+  public ChannelStatistics findStatistics() {
     return youtubeService.findStatistics();
   }
 }

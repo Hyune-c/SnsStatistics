@@ -27,7 +27,7 @@ class InstagramControllerTest {
   @Nested
   public class FindStatistics {
 
-    @DisplayName("Instagram 통계 가져오기")
+    @DisplayName("Instagram")
     @Test
     void instagram() throws Exception {
       // given

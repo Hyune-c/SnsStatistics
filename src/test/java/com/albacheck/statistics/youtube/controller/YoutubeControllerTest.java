@@ -27,7 +27,7 @@ public class YoutubeControllerTest {
   @Nested
   public class FindStatistics {
 
-    @DisplayName("Youtube 통계 가져오기")
+    @DisplayName("Youtube")
     @Test
     void youtube() throws Exception {
       // given
