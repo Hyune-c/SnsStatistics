@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/statistics")
-public class StatisticsController {
+public class YoutubeController {
 
   private final YoutubeService youtubeService;
 
