@@ -1,4 +1,8 @@
 spring:
   profiles:
-#    active: log, local, app
+    #    active: log, local, app
     active: log, prod, app
+logging:
+  level:
+    root: debug
+    sql: trace
