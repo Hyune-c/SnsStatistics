@@ -11,5 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "instagram")
 public class InstagramConfigure {
 
-  private String username;
+  private String baseUrl;
+  private String userName;
 }

@@ -12,12 +12,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class YoutubeService {
 
-  private final YoutubeConfigure configure;
+  private final String API_KEY;
+  private final String CHANNEL_ID;
+
   private final YouTube youtube;
 
   public YoutubeService(YoutubeConfigure configure) {
-    this.configure = configure;
     this.youtube = configure.getYoutube();
+    API_KEY = configure.getApiKey();
+    CHANNEL_ID = configure.getChannelId();
   }
 
   public ChannelStatistics findStatistics() throws IOException {
@@ -25,8 +28,8 @@ public class YoutubeService {
     final String FIELDS = "items(statistics)";
 
     YouTube.Channels.List list = youtube.channels().list(PART);
-    list.setKey(configure.getApiKey());
-    list.setId(configure.getChannelId());
+    list.setKey(API_KEY);
+    list.setId(CHANNEL_ID);
     list.setFields(FIELDS);
 
     ChannelListResponse channelListResponse = list.execute();
