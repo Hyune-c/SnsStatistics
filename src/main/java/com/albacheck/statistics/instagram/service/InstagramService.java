@@ -21,6 +21,7 @@ public class InstagramService {
     String restUrl = "/albacheck/?__a=1";
     String json = restTemplate.getForObject(BASE_URL + restUrl, String.class);
 
+    System.out.println("##### ++: " + JsonPath.parse(json).jsonString());
     Integer followed = JsonPath.parse(json).read("$.graphql.user.edge_followed_by.count");
     Integer follow = JsonPath.parse(json).read("$.graphql.user.edge_follow.count");
 
